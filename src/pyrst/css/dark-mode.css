@@ -1,0 +1,97 @@
+/* Dark Mode Global Overrides */
+
+/* Header */
+body.dark-mode header {
+  background: linear-gradient(to right, #1e3a8a, #4338ca) !important;
+}
+
+/* Footer */
+body.dark-mode footer {
+  background-color: #0f172a !important;
+  border-top-color: #1e293b !important;
+}
+
+body.dark-mode footer .text-gray-300 {
+  color: #cbd5e1 !important;
+}
+
+body.dark-mode footer .text-gray-500 {
+  color: #64748b !important;
+}
+
+body.dark-mode footer .text-blue-400 {
+  color: #60a5fa !important;
+}
+
+/* Panel header sections */
+body.dark-mode section > div.bg-gradient-to-r {
+  background: linear-gradient(to right, #374151, #1f2937) !important;
+}
+
+body.dark-mode section > div svg {
+  color: #d1d5db !important;
+}
+
+/* Preview wrapper */
+body.dark-mode #preview {
+  border-color: #374151 !important;
+}
+
+/* SVG icons color adjustments */
+body.dark-mode svg {
+  color: currentColor;
+}
+
+body.dark-mode .text-gray-600 svg {
+  color: #d1d5db !important;
+}
+
+/* Border dividers in toolbar */
+body.dark-mode .border-gray-300 {
+  border-color: #4b5563 !important;
+}
+
+/* Loading spinner dark mode */
+body.dark-mode #loading-spinner {
+  background: linear-gradient(to bottom right, #1e3a8a, #312e81, #4c1d95) !important;
+}
+
+body.dark-mode #loading-spinner .bg-white {
+  background-color: #1f2937 !important;
+}
+
+body.dark-mode #loading-spinner .text-gray-800 {
+  color: #f9fafb !important;
+}
+
+body.dark-mode #loading-spinner .text-gray-600 {
+  color: #d1d5db !important;
+}
+
+body.dark-mode #loading-spinner .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+body.dark-mode #loading-spinner .bg-blue-50 {
+  background-color: #374151 !important;
+}
+
+body.dark-mode #loading-spinner .text-blue-700 {
+  color: #93c5fd !important;
+}
+
+/* Transitions for smooth dark mode switching */
+body,
+header,
+footer,
+#editor-panel,
+#preview-panel,
+#editor,
+#preview,
+.toolbar-btn,
+.export-btn {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}

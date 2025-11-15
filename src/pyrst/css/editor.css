@@ -336,3 +336,61 @@ body.dark-mode .toast {
   background-color: var(--bg-tertiary);
   color: var(--text-primary);
 }
+
+/* Dark mode panel headers */
+body.dark-mode .bg-gradient-to-r.from-gray-50,
+body.dark-mode .bg-gradient-to-r.from-gray-100 {
+  background: var(--bg-tertiary) !important;
+}
+
+body.dark-mode .text-gray-700 {
+  color: var(--text-primary) !important;
+}
+
+body.dark-mode .text-gray-500 {
+  color: var(--text-secondary) !important;
+}
+
+body.dark-mode .text-gray-600 {
+  color: var(--text-secondary) !important;
+}
+
+/* Dark mode toolbar container */
+body.dark-mode .border-gray-200 {
+  border-color: var(--border-color) !important;
+}
+
+body.dark-mode .bg-white {
+  background-color: var(--bg-primary) !important;
+}
+
+body.dark-mode .bg-gray-50 {
+  background-color: var(--bg-secondary) !important;
+}
+
+/* Dark mode error items */
+body.dark-mode .error-item.error {
+  background-color: rgba(239, 68, 68, 0.15);
+  border-left-color: #ef4444;
+}
+
+body.dark-mode .error-item.error:hover {
+  background-color: rgba(239, 68, 68, 0.25);
+}
+
+body.dark-mode .error-item.warning {
+  background-color: rgba(245, 158, 11, 0.15);
+  border-left-color: #f59e0b;
+}
+
+body.dark-mode .error-item.warning:hover {
+  background-color: rgba(245, 158, 11, 0.25);
+}
+
+body.dark-mode .error-message {
+  color: var(--text-primary);
+}
+
+body.dark-mode .error-line {
+  color: var(--text-secondary);
+}
