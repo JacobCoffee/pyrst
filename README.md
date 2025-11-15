@@ -15,7 +15,7 @@ that runs entirely in your browser using Pyodide and docutils.
 
 ![PyRST Screenshot](docs/examples.png)
 
-- Visit the live demo at: **[PyRST Demo](https://rst.scriptr.dev)**
+- [Live demo](https://rst.scriptr.dev)**
 - [Docs](https://rst.scriptr.dev/docs/)
 
 ## Features
