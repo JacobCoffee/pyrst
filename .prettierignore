@@ -1,0 +1,26 @@
+# Dependencies
+node_modules
+.nodeenv
+
+# Python
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+.venv
+
+# Build outputs
+dist
+build
+*.egg-info
+htmlcov
+.coverage
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store

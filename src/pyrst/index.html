@@ -1,246 +1,401 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="h-full">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PyRST - reStructuredText Editor in Your Browser</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/pyodide/v0.29.0/full/pyodide.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="css/editor.css">
-    <link rel="stylesheet" href="css/preview.css">
-    <link rel="stylesheet" href="css/resizable.css">
-</head>
-<body class="h-full bg-gray-50">
+    <link rel="stylesheet" href="css/editor.css" />
+    <link rel="stylesheet" href="css/preview.css" />
+    <link rel="stylesheet" href="css/resizable.css" />
+  </head>
+  <body class="h-full bg-gray-50">
     <!-- Loading Spinner -->
-    <div id="loading-spinner" class="fixed inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 flex items-center justify-center z-50">
-        <div class="bg-white rounded-2xl shadow-2xl p-10 max-w-md text-center">
-            <div class="relative mb-6">
-                <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-blue-600 mx-auto"></div>
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <!-- Python Logo SVG -->
-                    <svg class="w-10 h-10" viewBox="0 0 128 128" fill="none">
-                        <linearGradient id="python-original-a" gradientUnits="userSpaceOnUse" x1="70.252" y1="1237.476" x2="170.659" y2="1151.089" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)">
-                            <stop offset="0" stop-color="#5A9FD4"/>
-                            <stop offset="1" stop-color="#306998"/>
-                        </linearGradient>
-                        <linearGradient id="python-original-b" gradientUnits="userSpaceOnUse" x1="209.474" y1="1098.811" x2="173.62" y2="1149.537" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)">
-                            <stop offset="0" stop-color="#FFD43B"/>
-                            <stop offset="1" stop-color="#FFE873"/>
-                        </linearGradient>
-                        <path fill="url(#python-original-a)" d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z" transform="translate(0 10.26)"/>
-                        <path fill="url(#python-original-b)" d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z" transform="translate(0 10.26)"/>
-                        <radialGradient id="python-original-c" cx="1825.678" cy="444.45" r="26.743" gradientTransform="matrix(0 -.24 -1.055 0 532.979 557.576)" gradientUnits="userSpaceOnUse">
-                            <stop offset="0" stop-color="#B8B8B8" stop-opacity=".498"/>
-                            <stop offset="1" stop-color="#7F7F7F" stop-opacity="0"/>
-                        </radialGradient>
-                        <path opacity=".444" fill="url(#python-original-c)" d="M97.309 119.597c0 3.543-14.816 6.416-33.091 6.416-18.276 0-33.092-2.873-33.092-6.416 0-3.544 14.815-6.417 33.092-6.417 18.275 0 33.091 2.872 33.091 6.417z"/>
-                    </svg>
-                </div>
-            </div>
-            <h2 class="text-2xl font-bold mb-3 text-gray-800">Loading PyRST</h2>
-            <p class="text-gray-600 text-sm mb-4">Initializing Python runtime in your browser</p>
-            <div class="bg-blue-50 rounded-lg p-3">
-                <p id="loading-status" class="text-blue-700 text-sm font-medium">Initializing...</p>
-            </div>
-            <p class="text-gray-400 text-xs mt-4">This may take 10-30 seconds on first load</p>
+    <div
+      id="loading-spinner"
+      class="fixed inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 flex items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-2xl shadow-2xl p-10 max-w-md text-center">
+        <div class="relative mb-6">
+          <div
+            class="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-blue-600 mx-auto"
+          ></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <!-- Python Logo SVG -->
+            <svg class="w-10 h-10" viewBox="0 0 128 128" fill="none">
+              <linearGradient
+                id="python-original-a"
+                gradientUnits="userSpaceOnUse"
+                x1="70.252"
+                y1="1237.476"
+                x2="170.659"
+                y2="1151.089"
+                gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"
+              >
+                <stop offset="0" stop-color="#5A9FD4" />
+                <stop offset="1" stop-color="#306998" />
+              </linearGradient>
+              <linearGradient
+                id="python-original-b"
+                gradientUnits="userSpaceOnUse"
+                x1="209.474"
+                y1="1098.811"
+                x2="173.62"
+                y2="1149.537"
+                gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"
+              >
+                <stop offset="0" stop-color="#FFD43B" />
+                <stop offset="1" stop-color="#FFE873" />
+              </linearGradient>
+              <path
+                fill="url(#python-original-a)"
+                d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z"
+                transform="translate(0 10.26)"
+              />
+              <path
+                fill="url(#python-original-b)"
+                d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z"
+                transform="translate(0 10.26)"
+              />
+              <radialGradient
+                id="python-original-c"
+                cx="1825.678"
+                cy="444.45"
+                r="26.743"
+                gradientTransform="matrix(0 -.24 -1.055 0 532.979 557.576)"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop offset="0" stop-color="#B8B8B8" stop-opacity=".498" />
+                <stop offset="1" stop-color="#7F7F7F" stop-opacity="0" />
+              </radialGradient>
+              <path
+                opacity=".444"
+                fill="url(#python-original-c)"
+                d="M97.309 119.597c0 3.543-14.816 6.416-33.091 6.416-18.276 0-33.092-2.873-33.092-6.416 0-3.544 14.815-6.417 33.092-6.417 18.275 0 33.091 2.872 33.091 6.417z"
+              />
+            </svg>
+          </div>
         </div>
+        <h2 class="text-2xl font-bold mb-3 text-gray-800">Loading PyRST</h2>
+        <p class="text-gray-600 text-sm mb-4">Initializing Python runtime in your browser</p>
+        <div class="bg-blue-50 rounded-lg p-3">
+          <p id="loading-status" class="text-blue-700 text-sm font-medium">Initializing...</p>
+        </div>
+        <p class="text-gray-400 text-xs mt-4">This may take 10-30 seconds on first load</p>
+      </div>
     </div>
 
     <!-- Main App -->
     <div class="h-full flex flex-col">
-        <!-- Header -->
-        <header class="bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg">
-            <div class="px-6 py-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg>
-                        <div>
-                            <h1 class="text-2xl font-bold text-white">PyRST</h1>
-                            <p class="text-blue-100 text-xs">reStructuredText Editor • Powered by WebAssembly</p>
-                        </div>
-                    </div>
-                    <div class="hidden md:flex items-center space-x-2 text-white text-sm">
-                        <span class="bg-white/20 px-3 py-1 rounded-full">No Server Required</span>
-                        <span class="bg-white/20 px-3 py-1 rounded-full">Live Preview</span>
-                    </div>
-                </div>
+      <!-- Header -->
+      <header class="bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg">
+        <div class="px-6 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                ></path>
+              </svg>
+              <div>
+                <h1 class="text-2xl font-bold text-white">PyRST</h1>
+                <p class="text-blue-100 text-xs">
+                  reStructuredText Editor • Powered by WebAssembly
+                </p>
+              </div>
             </div>
-        </header>
-
-        <!-- Editor + Preview -->
-        <main class="flex-1 overflow-hidden">
-            <div id="editor-container" class="h-full flex flex-col lg:flex-row">
-                <!-- Editor Panel -->
-                <section id="editor-panel" class="flex flex-col bg-white border-r border-gray-200 h-full overflow-hidden">
-                    <div class="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-3 border-b border-gray-200 flex items-center justify-between">
-                        <div class="flex items-center space-x-2">
-                            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                            </svg>
-                            <h2 class="text-lg font-semibold text-gray-700">Editor</h2>
-                        </div>
-                        <span class="text-xs text-gray-500 font-mono">reStructuredText</span>
-                    </div>
-
-                    <!-- Formatting Toolbar -->
-                    <div class="border-b border-gray-200 bg-white px-3 py-2 flex flex-wrap gap-1">
-                        <!-- Headers -->
-                        <div class="flex gap-1 border-r border-gray-200 pr-2">
-                            <button id="btn-h1" class="toolbar-btn" title="Heading 1" aria-label="Heading 1">
-                                <span class="font-bold">H1</span>
-                            </button>
-                            <button id="btn-h2" class="toolbar-btn" title="Heading 2" aria-label="Heading 2">
-                                <span class="font-bold">H2</span>
-                            </button>
-                            <button id="btn-h3" class="toolbar-btn" title="Heading 3" aria-label="Heading 3">
-                                <span class="font-bold">H3</span>
-                            </button>
-                        </div>
-
-                        <!-- Text Formatting -->
-                        <div class="flex gap-1 border-r border-gray-200 pr-2">
-                            <button id="btn-bold" class="toolbar-btn" title="Bold" aria-label="Bold">
-                                <i data-feather="bold"></i>
-                            </button>
-                            <button id="btn-italic" class="toolbar-btn" title="Italic" aria-label="Italic">
-                                <i data-feather="italic"></i>
-                            </button>
-                            <button id="btn-code" class="toolbar-btn" title="Inline Code" aria-label="Inline Code">
-                                <i data-feather="code"></i>
-                            </button>
-                        </div>
-
-                        <!-- Lists -->
-                        <div class="flex gap-1 border-r border-gray-200 pr-2">
-                            <button id="btn-ul" class="toolbar-btn" title="Bullet List" aria-label="Bullet List">
-                                <i data-feather="list"></i>
-                            </button>
-                            <button id="btn-ol" class="toolbar-btn" title="Numbered List" aria-label="Numbered List">
-                                <i data-feather="hash"></i>
-                            </button>
-                        </div>
-
-                        <!-- Links & Media -->
-                        <div class="flex gap-1 border-r border-gray-200 pr-2">
-                            <button id="btn-link" class="toolbar-btn" title="Link" aria-label="Link">
-                                <i data-feather="link"></i>
-                            </button>
-                            <button id="btn-image" class="toolbar-btn" title="Image" aria-label="Image">
-                                <i data-feather="image"></i>
-                            </button>
-                        </div>
-
-                        <!-- Blocks -->
-                        <div class="flex gap-1 border-r border-gray-200 pr-2">
-                            <button id="btn-codeblock" class="toolbar-btn" title="Code Block" aria-label="Code Block">
-                                <i data-feather="terminal"></i>
-                            </button>
-                            <button id="btn-quote" class="toolbar-btn" title="Blockquote" aria-label="Blockquote">
-                                <i data-feather="message-square"></i>
-                            </button>
-                            <button id="btn-table" class="toolbar-btn" title="Table" aria-label="Table">
-                                <i data-feather="grid"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Editor with highlight overlay -->
-                    <div class="flex-1 relative">
-                        <div id="editor-highlights" class="absolute inset-0 pointer-events-none z-0 overflow-hidden"></div>
-                        <textarea
-                            id="editor"
-                            class="absolute inset-0 p-6 font-mono text-sm text-gray-800 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset overflow-auto bg-transparent z-10"
-                            placeholder="Enter your reStructuredText here..."
-                            spellcheck="false"></textarea>
-                    </div>
-
-                    <!-- Error Panel -->
-                    <div id="error-panel" class="border-t border-gray-200 bg-gray-50 hidden">
-                        <div class="px-4 py-2 bg-white border-b border-gray-200 flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <span class="text-sm font-semibold text-gray-700">Errors & Warnings</span>
-                                <div class="flex items-center space-x-2 text-xs">
-                                    <span class="flex items-center space-x-1 text-red-600">
-                                        <i data-feather="x-circle" class="w-3 h-3"></i>
-                                        <span id="error-count">0</span>
-                                    </span>
-                                    <span class="flex items-center space-x-1 text-yellow-600">
-                                        <i data-feather="alert-triangle" class="w-3 h-3"></i>
-                                        <span id="warning-count">0</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <button id="toggle-errors" class="text-gray-500 hover:text-gray-700">
-                                <i data-feather="chevron-up" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                        <div id="error-list" class="max-h-48 overflow-auto"></div>
-                    </div>
-                </section>
-
-                <!-- Resizable Divider -->
-                <div id="divider" class="divider hidden lg:block"></div>
-
-                <!-- Preview Panel -->
-                <section id="preview-panel" class="flex flex-col bg-gray-50 h-full overflow-hidden">
-                    <div class="bg-gradient-to-r from-gray-100 to-gray-50 px-6 py-3 border-b border-gray-200 flex items-center justify-between">
-                        <div class="flex items-center space-x-2">
-                            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                            </svg>
-                            <h2 class="text-lg font-semibold text-gray-700">Preview</h2>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="flex gap-1 border-r border-gray-300 pr-2">
-                                <button id="btn-copy-rst" class="export-btn" title="Copy RST to clipboard" aria-label="Copy RST">
-                                    <i data-feather="file-text"></i>
-                                </button>
-                                <button id="btn-copy-html" class="export-btn" title="Copy HTML to clipboard" aria-label="Copy HTML">
-                                    <i data-feather="copy"></i>
-                                </button>
-                            </div>
-                            <div class="flex gap-1 border-r border-gray-300 pr-2">
-                                <button id="btn-download-rst" class="export-btn" title="Download as RST file" aria-label="Download RST">
-                                    <i data-feather="download"></i>
-                                    <span class="text-xs ml-1">RST</span>
-                                </button>
-                                <button id="btn-download-html" class="export-btn" title="Download as HTML file" aria-label="Download HTML">
-                                    <i data-feather="download"></i>
-                                    <span class="text-xs ml-1">HTML</span>
-                                </button>
-                            </div>
-                            <div class="flex gap-1">
-                                <button id="btn-download-pdf" class="export-btn" title="Download as PDF (Print)" aria-label="Download PDF">
-                                    <i data-feather="printer"></i>
-                                    <span class="text-xs ml-1">PDF</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        id="preview"
-                        class="flex-1 p-6 overflow-auto bg-white m-4 rounded-lg shadow-sm border border-gray-200"></div>
-                </section>
+            <div class="hidden md:flex items-center space-x-2 text-white text-sm">
+              <span class="bg-white/20 px-3 py-1 rounded-full">No Server Required</span>
+              <span class="bg-white/20 px-3 py-1 rounded-full">Live Preview</span>
+              <button
+                id="dark-mode-toggle"
+                class="ml-2 p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+                title="Toggle dark mode"
+                aria-label="Toggle dark mode"
+              >
+                <i data-feather="moon" class="w-5 h-5"></i>
+              </button>
             </div>
-        </main>
+          </div>
+        </div>
+      </header>
 
-        <!-- Footer -->
-        <footer class="bg-gray-800 text-gray-300 px-6 py-3 text-xs border-t border-gray-700">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <span>Powered by <a href="https://pyodide.org" class="text-blue-400 hover:underline" target="_blank">Pyodide</a></span>
-                    <span>•</span>
-                    <span>Using <a href="https://docutils.sourceforge.io/" class="text-blue-400 hover:underline" target="_blank">docutils</a></span>
-                </div>
-                <div class="text-gray-500">
-                    All processing happens in your browser
-                </div>
+      <!-- Editor + Preview -->
+      <main class="flex-1 overflow-hidden">
+        <div id="editor-container" class="h-full flex flex-col lg:flex-row">
+          <!-- Editor Panel -->
+          <section
+            id="editor-panel"
+            class="flex flex-col bg-white border-r border-gray-200 h-full overflow-hidden"
+          >
+            <div
+              class="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-3 border-b border-gray-200 flex items-center justify-between"
+            >
+              <div class="flex items-center space-x-2">
+                <svg
+                  class="w-5 h-5 text-gray-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                  ></path>
+                </svg>
+                <h2 class="text-lg font-semibold text-gray-700">Editor</h2>
+              </div>
+              <span class="text-xs text-gray-500 font-mono">reStructuredText</span>
             </div>
-        </footer>
+
+            <!-- Formatting Toolbar -->
+            <div class="border-b border-gray-200 bg-white px-3 py-2 flex flex-wrap gap-1">
+              <!-- Headers -->
+              <div class="flex gap-1 border-r border-gray-200 pr-2">
+                <button id="btn-h1" class="toolbar-btn" title="Heading 1" aria-label="Heading 1">
+                  <span class="font-bold">H1</span>
+                </button>
+                <button id="btn-h2" class="toolbar-btn" title="Heading 2" aria-label="Heading 2">
+                  <span class="font-bold">H2</span>
+                </button>
+                <button id="btn-h3" class="toolbar-btn" title="Heading 3" aria-label="Heading 3">
+                  <span class="font-bold">H3</span>
+                </button>
+              </div>
+
+              <!-- Text Formatting -->
+              <div class="flex gap-1 border-r border-gray-200 pr-2">
+                <button id="btn-bold" class="toolbar-btn" title="Bold" aria-label="Bold">
+                  <i data-feather="bold"></i>
+                </button>
+                <button id="btn-italic" class="toolbar-btn" title="Italic" aria-label="Italic">
+                  <i data-feather="italic"></i>
+                </button>
+                <button
+                  id="btn-code"
+                  class="toolbar-btn"
+                  title="Inline Code"
+                  aria-label="Inline Code"
+                >
+                  <i data-feather="code"></i>
+                </button>
+              </div>
+
+              <!-- Lists -->
+              <div class="flex gap-1 border-r border-gray-200 pr-2">
+                <button
+                  id="btn-ul"
+                  class="toolbar-btn"
+                  title="Bullet List"
+                  aria-label="Bullet List"
+                >
+                  <i data-feather="list"></i>
+                </button>
+                <button
+                  id="btn-ol"
+                  class="toolbar-btn"
+                  title="Numbered List"
+                  aria-label="Numbered List"
+                >
+                  <i data-feather="hash"></i>
+                </button>
+              </div>
+
+              <!-- Links & Media -->
+              <div class="flex gap-1 border-r border-gray-200 pr-2">
+                <button id="btn-link" class="toolbar-btn" title="Link" aria-label="Link">
+                  <i data-feather="link"></i>
+                </button>
+                <button id="btn-image" class="toolbar-btn" title="Image" aria-label="Image">
+                  <i data-feather="image"></i>
+                </button>
+              </div>
+
+              <!-- Blocks -->
+              <div class="flex gap-1 border-r border-gray-200 pr-2">
+                <button
+                  id="btn-codeblock"
+                  class="toolbar-btn"
+                  title="Code Block"
+                  aria-label="Code Block"
+                >
+                  <i data-feather="terminal"></i>
+                </button>
+                <button
+                  id="btn-quote"
+                  class="toolbar-btn"
+                  title="Blockquote"
+                  aria-label="Blockquote"
+                >
+                  <i data-feather="message-square"></i>
+                </button>
+                <button id="btn-table" class="toolbar-btn" title="Table" aria-label="Table">
+                  <i data-feather="grid"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Editor with highlight overlay -->
+            <div class="flex-1 relative">
+              <div
+                id="editor-highlights"
+                class="absolute inset-0 pointer-events-none z-0 overflow-hidden"
+              ></div>
+              <textarea
+                id="editor"
+                class="absolute inset-0 p-6 font-mono text-sm text-gray-800 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset overflow-auto bg-transparent z-10"
+                placeholder="Enter your reStructuredText here..."
+                spellcheck="false"
+              ></textarea>
+            </div>
+
+            <!-- Error Panel -->
+            <div id="error-panel" class="border-t border-gray-200 bg-gray-50 hidden">
+              <div
+                class="px-4 py-2 bg-white border-b border-gray-200 flex items-center justify-between"
+              >
+                <div class="flex items-center space-x-3">
+                  <span class="text-sm font-semibold text-gray-700">Errors & Warnings</span>
+                  <div class="flex items-center space-x-2 text-xs">
+                    <span class="flex items-center space-x-1 text-red-600">
+                      <i data-feather="x-circle" class="w-3 h-3"></i>
+                      <span id="error-count">0</span>
+                    </span>
+                    <span class="flex items-center space-x-1 text-yellow-600">
+                      <i data-feather="alert-triangle" class="w-3 h-3"></i>
+                      <span id="warning-count">0</span>
+                    </span>
+                  </div>
+                </div>
+                <button id="toggle-errors" class="text-gray-500 hover:text-gray-700">
+                  <i data-feather="chevron-up" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <div id="error-list" class="max-h-48 overflow-auto"></div>
+            </div>
+          </section>
+
+          <!-- Resizable Divider -->
+          <div id="divider" class="divider hidden lg:block"></div>
+
+          <!-- Preview Panel -->
+          <section id="preview-panel" class="flex flex-col bg-gray-50 h-full overflow-hidden">
+            <div
+              class="bg-gradient-to-r from-gray-100 to-gray-50 px-6 py-3 border-b border-gray-200 flex items-center justify-between"
+            >
+              <div class="flex items-center space-x-2">
+                <svg
+                  class="w-5 h-5 text-gray-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  ></path>
+                </svg>
+                <h2 class="text-lg font-semibold text-gray-700">Preview</h2>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="flex gap-1 border-r border-gray-300 pr-2">
+                  <button
+                    id="btn-copy-rst"
+                    class="export-btn"
+                    title="Copy RST to clipboard"
+                    aria-label="Copy RST"
+                  >
+                    <i data-feather="file-text"></i>
+                  </button>
+                  <button
+                    id="btn-copy-html"
+                    class="export-btn"
+                    title="Copy HTML to clipboard"
+                    aria-label="Copy HTML"
+                  >
+                    <i data-feather="copy"></i>
+                  </button>
+                </div>
+                <div class="flex gap-1 border-r border-gray-300 pr-2">
+                  <button
+                    id="btn-download-rst"
+                    class="export-btn"
+                    title="Download as RST file"
+                    aria-label="Download RST"
+                  >
+                    <i data-feather="download"></i>
+                    <span class="text-xs ml-1">RST</span>
+                  </button>
+                  <button
+                    id="btn-download-html"
+                    class="export-btn"
+                    title="Download as HTML file"
+                    aria-label="Download HTML"
+                  >
+                    <i data-feather="download"></i>
+                    <span class="text-xs ml-1">HTML</span>
+                  </button>
+                </div>
+                <div class="flex gap-1">
+                  <button
+                    id="btn-download-pdf"
+                    class="export-btn"
+                    title="Download as PDF (Print)"
+                    aria-label="Download PDF"
+                  >
+                    <i data-feather="printer"></i>
+                    <span class="text-xs ml-1">PDF</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              id="preview"
+              class="flex-1 p-6 overflow-auto bg-white m-4 rounded-lg shadow-sm border border-gray-200"
+            ></div>
+          </section>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-gray-800 text-gray-300 px-6 py-3 text-xs border-t border-gray-700">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <span
+              >Powered by
+              <a href="https://pyodide.org" class="text-blue-400 hover:underline" target="_blank"
+                >Pyodide</a
+              ></span
+            >
+            <span>•</span>
+            <span
+              >Using
+              <a
+                href="https://docutils.sourceforge.io/"
+                class="text-blue-400 hover:underline"
+                target="_blank"
+                >docutils</a
+              ></span
+            >
+          </div>
+          <div class="text-gray-500">All processing happens in your browser</div>
+        </div>
+      </footer>
     </div>
 
     <!-- Toast Notification Container -->
@@ -249,5 +404,5 @@
     <script src="./error-highlighting.js"></script>
     <script src="./app_export.js"></script>
     <script src="./app.js"></script>
-</body>
+  </body>
 </html>

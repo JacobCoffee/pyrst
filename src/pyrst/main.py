@@ -1,8 +1,8 @@
 """Convert rST using docutils."""
 
-from docutils.core import publish_parts
 import js
 from pyodide.http import pyfetch
+
 
 def convert_rst(rst_text: str) -> str:
     """Convert reStructuredText to HTML."""
@@ -23,26 +23,28 @@ def convert_rst(rst_text: str) -> str:
                 "embed_stylesheet": False,
                 "xml_declaration": False,
                 "doctitle_xform": False,
-            }
+            },
         )
 
         # Convert bytes to string if needed
         if isinstance(html, bytes):
-            html = html.decode('utf-8')
+            html = html.decode("utf-8")
 
         # Extract just the body content (between <body> and </body>)
         import re
-        body_match = re.search(r'<body[^>]*>(.*?)</body>', html, re.DOTALL)
+
+        body_match = re.search(r"<body[^>]*>(.*?)</body>", html, re.DOTALL)
         if body_match:
             html = body_match.group(1)
 
         # Remove the document wrapper div if present
-        html = re.sub(r'^\s*<div class="document"[^>]*>', '', html)
-        html = re.sub(r'</div>\s*$', '', html)
+        html = re.sub(r'^\s*<div class="document"[^>]*>', "", html)
+        html = re.sub(r"</div>\s*$", "", html)
 
         return html.strip()
     except Exception as exc:
         import traceback
+
         error_detail = traceback.format_exc()
         return f'<div class="text-red-600 p-4 bg-red-50 rounded"><strong>Error:</strong> {exc}<pre class="text-xs mt-2">{error_detail}</pre></div>'
 
@@ -81,6 +83,7 @@ async def initialize_editor():
 
 def setup_event_handlers():
     """Set up event handlers using Python."""
+
     def on_input(event):
         """Handle input events on the editor."""
         rst_text = event.target.value
@@ -101,6 +104,7 @@ def setup_event_handlers():
     # ffi lets us create a proxy obj that can be called from one lang to another
     # this is bridging js <-> python
     from pyodide.ffi import create_proxy
+
     input_proxy = create_proxy(on_input)
 
     editor.addEventListener("input", input_proxy)

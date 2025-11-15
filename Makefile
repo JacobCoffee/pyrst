@@ -1,60 +1,36 @@
-.PHONY: install install-dev serve test test-cov test-watch lint format check clean help
+.DEFAULT_GOAL:=help
+.ONESHELL:
+NODE_ENV=.nodeenv
 
-help:  ## Show this help message
-	@echo "Available targets:"
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
+help: ## Display this help text for Makefile
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z0-9_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
-install:  ## Install production dependencies
-	@uv sync
+upgrade: ## Upgrade all dependencies to the latest stable versions
+	@uv lock --upgrade
+	@echo "=> Dependencies Updated"
 
-install-dev:  ## Install development dependencies
-	@uv sync --group dev
+setup-node: ## Set up node environment and install prettier
+	@bash scripts/setup_node.sh
 
-serve:  ## Start development server at http://localhost:8000
-	@echo "Starting development server at http://localhost:8000"
-	@cd src/pyrst/ && uv run python -m http.server 8000
+lint: ## Lint the code
+	@uv run ruff check --fix --unsafe-fixes .
 
-test:  ## Run tests
-	@echo "Running tests..."
-	@uv run pytest -v
+fmt: ## Format the code
+	@uv run ruff format .
 
-test-cov:  ## Run tests with coverage report
-	@echo "Running tests with coverage..."
-	@uv run pytest --cov=src/pyrst --cov-report=html --cov-report=term -v
-	@echo "\nCoverage report generated in htmlcov/index.html"
+fmt-check: ## Runs Ruff format in check mode (no changes)
+	@uv run --no-sync ruff format --check .
 
-test-watch:  ## Run tests in watch mode (requires pytest-watch)
-	@echo "Running tests in watch mode..."
-	@uv run ptw -- -v
+prettier: setup-node ## Format JS/CSS/HTML with prettier
+	@source $(NODE_ENV)/bin/activate && npx prettier --write "src/**/*.{js,css,html}"
 
-test-fast:  ## Run tests without slow tests
-	@echo "Running fast tests only..."
-	@uv run pytest -v -m "not slow"
+prettier-check: setup-node ## Check JS/CSS/HTML formatting with prettier
+	@source $(NODE_ENV)/bin/activate && npx prettier --check "src/**/*.{js,css,html}"
 
-lint:  ## Run ruff linter
-	@echo "Running linter..."
-	@uv run ruff check src tests
+type-check: ## Run type-checking
+	@uv run ty check
 
-format:  ## Format code with ruff
-	@echo "Formatting code..."
-	@uv run ruff format src tests
-	@uv run ruff check --fix src tests
+test: ## Run tests
+	@uv run pytest
 
-check:  ## Run all checks (lint, format check, type check, tests)
-	@echo "Running all checks..."
-	@uv run ruff check src tests
-	@uv run ruff format --check src tests
-	@uv run pytest --cov=src/pyrst --cov-report=term -v
-
-clean:  ## Clean up generated files
-	@echo "Cleaning up..."
-	@rm -rf .pytest_cache
-	@rm -rf htmlcov
-	@rm -rf .coverage
-	@rm -rf .ruff_cache
-	@rm -rf dist
-	@rm -rf build
-	@rm -rf *.egg-info
-	@find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
-	@find . -type f -name "*.pyc" -delete
-	@echo "Clean complete!"
+ci: lint fmt prettier type-check test ## Run everything its cleaner.

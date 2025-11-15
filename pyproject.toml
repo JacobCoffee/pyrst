@@ -25,6 +25,8 @@ dev = [
     "pytest-cov>=6.0.0",
     "ruff>=0.14.5",
     "ty>=0.0.1a26",
+    "pytest-sugar>=1.1.1",
+    "nodeenv>=1.9.1",
 ]
 
 [tool.pytest.ini_options]

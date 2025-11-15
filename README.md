@@ -1,12 +1,16 @@
 # PyRST
 
-**A powerful, browser-based reStructuredText editor powered by WebAssembly**
+**A powerful, browser-based reStructuredText editor powered by WebAssembly thanks to Pyodide**
 
-PyRST is a zero-install, client-side reStructuredText (RST) editor that runs entirely in your browser using Pyodide and docutils. No server required, no data leaves your browser.
+PyRST is a zero-install, client-side reStructuredText (rST) editor 
+that runs entirely in your browser using Pyodide and docutils. 
+
+> ![INFO]
+> No server required, no data leaves your browser.
 
 [![Python](https://img.shields.io/badge/Python-3.14+-blue.svg)](https://www.python.org/)
 [![Pyodide](https://img.shields.io/badge/Pyodide-0.29.0-green.svg)](https://pyodide.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/JacobCoffee/pyrst)
 
 ## Features
 
@@ -23,7 +27,7 @@ PyRST is a zero-install, client-side reStructuredText (RST) editor that runs ent
 
 ### Online Demo
 
-Visit the live demo at: **[Add your deployment URL here]**
+Visit the live demo at: **TODO**
 
 ### Local Development
 
@@ -78,6 +82,8 @@ See [docs/TOOLBAR.md](docs/TOOLBAR.md) for detailed toolbar documentation.
 
 ## Documentation
 
+It's all AI generated, so... good luck :)
+
 - [Architecture](docs/ARCHITECTURE.md) - System design and components
 - [Features](docs/FEATURES.md) - Complete feature documentation
 - [Development Guide](docs/DEVELOPMENT.md) - Local development setup
@@ -91,25 +97,13 @@ See [docs/TOOLBAR.md](docs/TOOLBAR.md) for detailed toolbar documentation.
 - Modern web browser with WebAssembly support
 - For development: Python 3.14+ and `uv` package manager
 
-## Browser Compatibility
-
-PyRST works in all modern browsers that support:
-- WebAssembly
-- ES6+ JavaScript
-- Clipboard API (for copy functionality)
-
-Tested on:
-- Chrome/Edge 90+
-- Firefox 88+
-- Safari 15+
-
 ## Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Open PRs/issues
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file for details.
+MIT License
 
 ## Acknowledgments
 
@@ -121,7 +115,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Author
 
-Jacob Coffee (jacob@z7x.org)
+Jacob Coffee and a lot of Claude Code
 
 ---
 
