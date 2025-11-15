@@ -409,10 +409,10 @@ async function initPyodide() {
     await pyodide.loadPackage("micropip");
     const micropip = pyodide.pyimport("micropip");
 
-    // Install docutils
-    status.textContent = "Installing docutils...";
-    await micropip.install("docutils");
-    console.log("docutils installed!");
+    // Install Sphinx (includes docutils)
+    status.textContent = "Installing Sphinx...";
+    await micropip.install("sphinx");
+    console.log("Sphinx installed!");
 
     // Load Python converter function
     status.textContent = "Loading Python modules...";

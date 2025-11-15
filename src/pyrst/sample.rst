@@ -756,5 +756,64 @@ For more information, consult these resources:
 * `Directives Reference <https://docutils.sourceforge.io/docs/ref/rst/directives.html>`_
 
 ================================================================================
+Section 16: Error Detection Showcase (Intentional Errors Below)
+================================================================================
+
+.. note::
+
+   The examples below contain **intentional errors and warnings** to demonstrate
+   PyRST's error detection and reporting capabilities. These are meant to showcase
+   the error panel, not actual documentation mistakes!
+
+Intentional Warning: Duplicate Target
+--------------------------------------
+
+.. _demo-target:
+
+This is a target for cross-referencing.
+
+.. _demo-target:
+
+This creates a duplicate implicit target warning (shown in error panel).
+
+Intentional Error: Malformed Directive
+---------------------------------------
+
+.. note
+   This note directive is missing the double colon, causing a warning.
+
+Intentional Error: Invalid Indentation
+---------------------------------------
+
+.. code-block:: python
+
+def broken_indent():
+    # This code block has incorrect indentation
+    return "error"
+
+Intentional Warning: Unknown Role
+----------------------------------
+
+This text uses an :unknown-role:`invalid custom role` that doesn't exist.
+
+Intentional Error: Malformed Link
+----------------------------------
+
+This is a `malformed link because it's missing the closing backtick and underscore
+
+Intentional Warning: Unmatched Title Underline
+-----------------------------------------------
+
+Bad Heading
+=====
+
+The underline is too short for this heading.
+
+.. note::
+
+   End of intentional error examples. The errors above help demonstrate
+   PyRST's real-time error detection in the error panel!
+
+================================================================================
 
 .. footer:: Document generated on |date| | Version 2.0 | |RST| Showcase
