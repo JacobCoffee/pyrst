@@ -12,6 +12,8 @@ that runs entirely in your browser using Pyodide and docutils.
 [![Pyodide](https://img.shields.io/badge/Pyodide-0.29.0-green.svg)](https://pyodide.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/JacobCoffee/pyrst)
 
+![PyRST Screenshot](docs/examples.png)
+
 ## Features
 
 - **Live Preview**: Instant rendering of RST to HTML as you type
