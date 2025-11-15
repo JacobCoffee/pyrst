@@ -35,11 +35,28 @@ test: ## Run tests
 
 ci: lint fmt prettier type-check test ## Run everything its cleaner.
 
-docs-serve: ## Serve documentation locally
+docs-serve: ## Serve documentation locally with auto-rebuild
 	@uv run sphinx-autobuild docs docs/_build/html --port 8002 --watch docs
 
 docs-build: ## Build documentation
 	@uv run sphinx-build -W --keep-going -b html docs docs/_build/html
 
 docs-clean: ## Clean documentation build artifacts
-	@rm -rf docs/_build docs/_static docs/_templates
+	@rm -rf docs/_build docs/_static docs/_templates _site
+
+site-build: ## Build complete site (app + docs) for deployment
+	@echo "Building documentation..."
+	@uv run sphinx-build -b html docs _site/docs
+	@echo "Copying app files..."
+	@mkdir -p _site
+	@cp -r src/pyrst/* _site/
+	@touch _site/.nojekyll
+	@echo "Site built in _site/ directory"
+	@echo "  - App: _site/index.html"
+	@echo "  - Docs: _site/docs/index.html"
+
+site-serve: site-build ## Build and serve complete site locally
+	@echo "Serving site at http://localhost:8003"
+	@echo "  - App: http://localhost:8003/"
+	@echo "  - Docs: http://localhost:8003/docs/"
+	@cd _site && python3 -m http.server 8003
