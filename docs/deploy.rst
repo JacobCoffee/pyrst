@@ -35,7 +35,7 @@ Build and Preview Locally
    make site-build
 
    # Build and serve the complete site
-   make site-serve
+   make serve
 
 Then visit:
 
