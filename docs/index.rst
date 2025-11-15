@@ -25,7 +25,7 @@ Features
 Quick Start
 -----------
 
-Visit `pyrst.dev <https://pyrst.dev>`_ to start using the editor immediately.
+Visit `rst.scriptr.dev <https://rst.scriptr.dev>`_ to start using the editor immediately.
 
 Documentation Contents
 ----------------------

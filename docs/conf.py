@@ -64,7 +64,7 @@ html_theme_options = {
     "nav_links": [
         {
             "title": "Demo",
-            "url": "https://pyrst.dev",
+            "url": "https://rst.scriptr.dev",
         },
         {
             "title": "GitHub",
