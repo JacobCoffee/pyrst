@@ -1,0 +1,173 @@
+/* RST Preview Styling */
+
+#preview h1,
+#preview h2 {
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#preview h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+}
+
+#preview h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+
+#preview h3 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+#preview p {
+    margin-bottom: 1rem;
+    line-height: 1.625;
+}
+
+#preview ul,
+#preview ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#preview ul {
+    list-style-type: disc;
+}
+
+#preview ol {
+    list-style-type: decimal;
+}
+
+#preview li {
+    margin-bottom: 0.25rem;
+}
+
+#preview a {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+#preview a:hover {
+    color: #1d4ed8;
+}
+
+#preview strong {
+    font-weight: 700;
+}
+
+#preview em {
+    font-style: italic;
+}
+
+#preview code {
+    background-color: #f3f4f6;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-family: ui-monospace, monospace;
+}
+
+#preview pre {
+    background-color: #1f2937;
+    color: #f3f4f6;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    font-family: ui-monospace, monospace;
+}
+
+#preview pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+#preview blockquote {
+    border-left: 4px solid #d1d5db;
+    padding-left: 1rem;
+    font-style: italic;
+    margin: 1rem 0;
+    color: #6b7280;
+}
+
+#preview table {
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+#preview th {
+    border: 1px solid #d1d5db;
+    padding: 0.5rem 1rem;
+    background-color: #f3f4f6;
+    font-weight: 700;
+    text-align: left;
+}
+
+#preview td {
+    border: 1px solid #d1d5db;
+    padding: 0.5rem 1rem;
+}
+
+#preview dl {
+    margin-bottom: 1rem;
+}
+
+#preview dt {
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+#preview dd {
+    margin-left: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#preview .section {
+    margin-bottom: 1.5rem;
+}
+
+#preview nav.contents {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#preview nav.contents .topic-title {
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+#preview .field-list {
+    margin-bottom: 1.5rem;
+}
+
+#preview .field-list dt {
+    display: inline;
+    font-weight: 600;
+}
+
+#preview .field-list dt::after {
+    content: ":";
+    margin-right: 0.5rem;
+}
+
+#preview .field-list dd {
+    display: inline;
+    margin-left: 0;
+}
+
+#preview .field-list dd::after {
+    content: "";
+    display: block;
+    margin-bottom: 0.25rem;
+}

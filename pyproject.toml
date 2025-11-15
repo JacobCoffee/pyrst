@@ -1,0 +1,27 @@
+[project]
+name = "pyrst"
+version = "0.1.0"
+description = "A WASM rST editor using Pyodide and docutils"
+readme = "README.md"
+authors = [
+    { name = "Jacob Coffee", email = "jacob@z7x.org" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "docutils>=0.22.3",
+]
+
+[project.scripts]
+pyrst = "pyrst:main"
+
+[build-system]
+requires = ["uv_build>=0.9.7,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.1",
+    "pytest-pyodide>=0.58.10",
+    "ruff>=0.14.5",
+    "ty>=0.0.1a26",
+]
