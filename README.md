@@ -1,5 +1,10 @@
 # PyRST
 
+[![Python](https://img.shields.io/badge/Python-3.14+-blue.svg)](https://www.python.org/)
+[![Pyodide](https://img.shields.io/badge/Pyodide-0.29.0-green.svg)](https://pyodide.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/JacobCoffee/pyrst)
+
+
 **A powerful, browser-based reStructuredText editor powered by WebAssembly thanks to Pyodide**
 
 PyRST is a zero-install, client-side reStructuredText (rST) editor 
@@ -7,10 +12,6 @@ that runs entirely in your browser using Pyodide and docutils.
 
 > [!NOTE]
 > No server required, no data leaves your browser.
-
-[![Python](https://img.shields.io/badge/Python-3.14+-blue.svg)](https://www.python.org/)
-[![Pyodide](https://img.shields.io/badge/Pyodide-0.29.0-green.svg)](https://pyodide.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/JacobCoffee/pyrst)
 
 ![PyRST Screenshot](docs/examples.png)
 
