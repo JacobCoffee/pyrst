@@ -44,6 +44,7 @@ Documentation Contents
    architecture
    api
    development
+   deploy
 
 Indices and tables
 ------------------
