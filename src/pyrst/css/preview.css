@@ -65,7 +65,8 @@
   font-style: italic;
 }
 
-#preview code {
+#preview code,
+#preview .docutils.literal {
   background-color: #f3f4f6;
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
@@ -83,9 +84,11 @@
   font-family: ui-monospace, monospace;
 }
 
-#preview pre code {
+#preview pre code,
+#preview pre .docutils.literal {
   background-color: transparent;
   padding: 0;
+  color: inherit;
 }
 
 #preview blockquote {
@@ -356,6 +359,39 @@
   margin-bottom: 0.75rem;
 }
 
+/* Bibliographic Fields / Document Info */
+#preview .docinfo {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
+
+#preview .docinfo dt {
+  font-weight: 600;
+  color: #374151;
+  margin-top: 0.5rem;
+  float: left;
+  clear: left;
+  width: 120px;
+}
+
+#preview .docinfo dt::after {
+  content: ":";
+}
+
+#preview .docinfo dd {
+  margin-left: 130px;
+  margin-bottom: 0.5rem;
+  color: #6b7280;
+}
+
+#preview .docinfo dd:last-child {
+  margin-bottom: 0;
+}
+
 /* Hide system messages from preview (they are shown in error panel) */
 #preview .system-message {
   display: none;
@@ -384,7 +420,8 @@ body.dark-mode #preview a:hover {
   color: #93c5fd;
 }
 
-body.dark-mode #preview code {
+body.dark-mode #preview code,
+body.dark-mode #preview .docutils.literal {
   background-color: #374151;
   color: #e5e7eb;
 }
@@ -442,4 +479,17 @@ body.dark-mode #preview .sidebar {
 body.dark-mode #preview .topic {
   background-color: #1f2937;
   border-color: #374151;
+}
+
+body.dark-mode #preview .docinfo {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+body.dark-mode #preview .docinfo dt {
+  color: #f9fafb;
+}
+
+body.dark-mode #preview .docinfo dd {
+  color: #d1d5db;
 }
