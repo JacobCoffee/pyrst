@@ -65,7 +65,7 @@ Use the formatting toolbar for quick access to common RST syntax:
 - **Links & Media**: Hyperlinks and images
 - **Blocks**: Code blocks, blockquotes, and tables
 
-See [docs/TOOLBAR.md](docs/TOOLBAR.md) for detailed toolbar documentation.
+See [docs/TOOLBAR.md](docs/toolbar.rst) for detailed toolbar documentation.
 
 ### Export Options
 
@@ -87,17 +87,15 @@ See [docs/TOOLBAR.md](docs/TOOLBAR.md) for detailed toolbar documentation.
 
 It's all AI generated, so... good luck :)
 
-- [Architecture](docs/ARCHITECTURE.md) - System design and components
-- [Features](docs/FEATURES.md) - Complete feature documentation
-- [Development Guide](docs/DEVELOPMENT.md) - Local development setup
-- [API Reference](docs/API.md) - JavaScript API documentation
-- [Toolbar Guide](docs/TOOLBAR.md) - Toolbar button reference
-- [Contributing](CONTRIBUTING.md) - How to contribute
-- [Changelog](CHANGELOG.md) - Version history
+- [Architecture](docs/architecture.rst) - System design and components
+- [Features](docs/features.rst) - Complete feature documentation
+- [Development Guide](docs/development.rst) - Local development setup
+- [API Reference](docs/api.rst) - JavaScript API documentation
+- [Toolbar Guide](docs/toolbar.rst) - Toolbar button reference
 
 ## Requirements
 
-- Modern web browser with WebAssembly support
+- Modern web browser with WebAssembly support (thanks, Pyodide!)
 - For development: Python 3.14+ and `uv` package manager
 
 ## Contributing
@@ -110,11 +108,7 @@ MIT License
 
 ## Acknowledgments
 
-- [Pyodide](https://pyodide.org/) - Python in the browser
-- [docutils](https://docutils.sourceforge.io/) - RST parser and HTML generator
 - [rst-playground](https://github.com/waldyrious/rst-playground) - Inspiration for the WASM approach
-- [Tailwind CSS](https://tailwindcss.com/) - UI styling
-- [Feather Icons](https://feathericons.com/) - Icon set
 
 ## Author
 
