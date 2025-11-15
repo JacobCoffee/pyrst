@@ -5,7 +5,7 @@
 PyRST is a zero-install, client-side reStructuredText (rST) editor 
 that runs entirely in your browser using Pyodide and docutils. 
 
-> ![INFO]
+> [!NOTE]
 > No server required, no data leaves your browser.
 
 [![Python](https://img.shields.io/badge/Python-3.14+-blue.svg)](https://www.python.org/)
