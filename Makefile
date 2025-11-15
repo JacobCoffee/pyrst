@@ -56,7 +56,7 @@ site-build: ## Build complete site (app + docs) for deployment
 	@echo "  - Docs: _site/docs/index.html"
 
 serve: site-build ## Build and serve complete site locally
-	@echo "Serving site at http://localhost:8003"
-	@echo "  - App: http://localhost:8003/"
-	@echo "  - Docs: http://localhost:8003/docs/"
-	@cd _site && python3 -m http.server 8003
+	@echo "Serving site at http://localhost:8000"
+	@echo "  - App: http://localhost:8000/"
+	@echo "  - Docs: http://localhost:8000/docs/"
+	@cd _site && python3 -m http.server 8000

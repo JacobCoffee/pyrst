@@ -39,8 +39,8 @@ Build and Preview Locally
 
 Then visit:
 
-- **App**: http://localhost:8003/
-- **Docs**: http://localhost:8003/docs/
+- **App**: http://localhost:8000/
+- **Docs**: http://localhost:8000/docs/
 
 Build Only Documentation
 -------------------------
