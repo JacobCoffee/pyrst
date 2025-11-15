@@ -1,20 +1,8 @@
-__pycache__/
-.venv/
 .nodeenv/
-*.pyc
-dist/
-build/
-*.egg-info/
-.pytest_cache/
-.coverage
-htmlcov/
-.ruff_cache/
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-.DS_Store
 
 # Sphinx documentation
 docs/_build/
+
+# Site build directory (app + docs)
+_site/
+
