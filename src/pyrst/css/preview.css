@@ -171,3 +171,192 @@
     display: block;
     margin-bottom: 0.25rem;
 }
+
+/* Images and Figures */
+#preview img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+#preview .align-left {
+    text-align: left;
+}
+
+#preview .align-left img {
+    margin-right: auto;
+}
+
+#preview .align-center {
+    text-align: center;
+}
+
+#preview .align-center img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#preview .align-right {
+    text-align: right;
+}
+
+#preview .align-right img {
+    margin-left: auto;
+}
+
+#preview .figure {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+}
+
+#preview .figure img {
+    margin-bottom: 0.75rem;
+}
+
+#preview .figure .caption {
+    font-size: 0.9rem;
+    color: #374151;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
+#preview .figure .legend {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Admonitions */
+#preview .admonition,
+#preview .note,
+#preview .warning,
+#preview .tip,
+#preview .hint,
+#preview .important,
+#preview .caution,
+#preview .danger,
+#preview .error,
+#preview .attention {
+    margin: 1rem 0;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid #6b7280;
+    background-color: #f9fafb;
+    border-radius: 0.25rem;
+}
+
+#preview .admonition .admonition-title,
+#preview .note .admonition-title,
+#preview .warning .admonition-title,
+#preview .tip .admonition-title,
+#preview .hint .admonition-title,
+#preview .important .admonition-title,
+#preview .caution .admonition-title,
+#preview .danger .admonition-title,
+#preview .error .admonition-title,
+#preview .attention .admonition-title {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+#preview .note {
+    border-left-color: #3b82f6;
+    background-color: #eff6ff;
+}
+
+#preview .note .admonition-title {
+    color: #1e40af;
+}
+
+#preview .tip,
+#preview .hint {
+    border-left-color: #10b981;
+    background-color: #f0fdf4;
+}
+
+#preview .tip .admonition-title,
+#preview .hint .admonition-title {
+    color: #065f46;
+}
+
+#preview .important,
+#preview .attention {
+    border-left-color: #f59e0b;
+    background-color: #fffbeb;
+}
+
+#preview .important .admonition-title,
+#preview .attention .admonition-title {
+    color: #92400e;
+}
+
+#preview .warning,
+#preview .caution {
+    border-left-color: #f59e0b;
+    background-color: #fef3c7;
+}
+
+#preview .warning .admonition-title,
+#preview .caution .admonition-title {
+    color: #78350f;
+}
+
+#preview .danger,
+#preview .error {
+    border-left-color: #ef4444;
+    background-color: #fef2f2;
+}
+
+#preview .danger .admonition-title,
+#preview .error .admonition-title {
+    color: #991b1b;
+}
+
+/* Sidebar and Topic */
+#preview .sidebar {
+    float: right;
+    width: 40%;
+    margin: 0 0 1rem 1rem;
+    padding: 1rem;
+    background-color: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+}
+
+#preview .sidebar .sidebar-title {
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+#preview .sidebar .sidebar-subtitle {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.75rem;
+}
+
+#preview .topic {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+}
+
+#preview .topic .topic-title {
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Hide system messages from preview (they are shown in error panel) */
+#preview .system-message {
+    display: none;
+}

@@ -4,6 +4,112 @@
  */
 
 let pyodide;
+const MIN_PANEL_WIDTH = 300; // Minimum width for each panel in pixels
+
+/**
+ * Resizable panels functionality
+ */
+function initResizablePanels() {
+    const divider = document.getElementById('divider');
+    const editorPanel = document.getElementById('editor-panel');
+    const previewPanel = document.getElementById('preview-panel');
+    const container = document.getElementById('editor-container');
+
+    if (!divider || !editorPanel || !previewPanel || !container) {
+        console.log('Resizable panels not available (mobile view or elements not found)');
+        return;
+    }
+
+    let isDragging = false;
+
+    // Load saved panel sizes from localStorage
+    function loadPanelSizes() {
+        const saved = localStorage.getItem('pyrst-panel-sizes');
+        if (saved) {
+            try {
+                const { editorWidth } = JSON.parse(saved);
+                editorPanel.style.flex = `0 0 ${editorWidth}px`;
+                previewPanel.style.flex = '1 1 0';
+                console.log('Loaded panel sizes from localStorage:', editorWidth);
+            } catch (e) {
+                console.warn('Failed to parse saved panel sizes, using defaults');
+                setDefaultSizes();
+            }
+        } else {
+            setDefaultSizes();
+        }
+    }
+
+    // Set default 50/50 split
+    function setDefaultSizes() {
+        editorPanel.style.flex = '1 1 0';
+        previewPanel.style.flex = '1 1 0';
+    }
+
+    // Save panel sizes to localStorage
+    function savePanelSizes() {
+        const sizes = {
+            editorWidth: editorPanel.offsetWidth,
+            previewWidth: previewPanel.offsetWidth
+        };
+        localStorage.setItem('pyrst-panel-sizes', JSON.stringify(sizes));
+        console.log('Saved panel sizes:', sizes);
+    }
+
+    // Handle mouse down on divider
+    function onMouseDown(e) {
+        isDragging = true;
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+        e.preventDefault();
+    }
+
+    // Handle mouse move
+    function onMouseMove(e) {
+        if (!isDragging) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const containerWidth = containerRect.width;
+        const dividerWidth = 4;
+
+        // Calculate the new editor width based on mouse position
+        let newEditorWidth = e.clientX - containerRect.left;
+        const newPreviewWidth = containerWidth - newEditorWidth - dividerWidth;
+
+        // Enforce minimum widths
+        if (newEditorWidth < MIN_PANEL_WIDTH) {
+            newEditorWidth = MIN_PANEL_WIDTH;
+        }
+        if (newPreviewWidth < MIN_PANEL_WIDTH) {
+            newEditorWidth = containerWidth - MIN_PANEL_WIDTH - dividerWidth;
+        }
+
+        // Apply new widths using flex-basis
+        editorPanel.style.flex = `0 0 ${newEditorWidth}px`;
+        previewPanel.style.flex = '1 1 0';
+    }
+
+    // Handle mouse up
+    function onMouseUp() {
+        if (isDragging) {
+            isDragging = false;
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+            savePanelSizes();
+        }
+    }
+
+    // Attach event listeners
+    divider.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+
+    // Load initial sizes
+    loadPanelSizes();
+
+    console.log('Resizable panels initialized!');
+}
+
 
 /**
  * Toolbar formatting functions
@@ -81,25 +187,68 @@ function addHeading(level) {
 
 // Insert bullet list
 function insertBulletList() {
-    const { selectedText } = getEditorSelection();
+    const { editor, start, end, selectedText } = getEditorSelection();
+    const before = editor.value.substring(0, start);
+    const currentLine = before.split('\n').pop();
+
     if (selectedText) {
+        // Convert selected lines to bullet list
         const lines = selectedText.split('\n');
         const list = lines.map(line => line.trim() ? '- ' + line : '').join('\n');
         insertText(list + '\n', false);
-    } else {
+    } else if (currentLine.trim() === '') {
+        // Empty line: insert 3 placeholder items
         insertText('- Item 1\n- Item 2\n- Item 3\n', false);
+    } else if (currentLine.match(/^-\s/)) {
+        // Already in a list: add new item on next line
+        const after = editor.value.substring(end);
+        editor.value = before + '\n- ' + after;
+        editor.selectionStart = editor.selectionEnd = start + 3;
+        editor.dispatchEvent(new Event('input'));
+        editor.focus();
+    } else {
+        // Convert current line to list item
+        const lineStart = start - currentLine.length;
+        const after = editor.value.substring(end);
+        const beforeLine = editor.value.substring(0, lineStart);
+        editor.value = beforeLine + '- ' + currentLine + after;
+        editor.selectionStart = editor.selectionEnd = start + 2;
+        editor.dispatchEvent(new Event('input'));
+        editor.focus();
     }
 }
 
 // Insert numbered list
 function insertNumberedList() {
-    const { selectedText } = getEditorSelection();
+    const { editor, start, end, selectedText } = getEditorSelection();
+    const before = editor.value.substring(0, start);
+    const currentLine = before.split('\n').pop();
+
     if (selectedText) {
+        // Convert selected lines to numbered list
         const lines = selectedText.split('\n');
         const list = lines.map((line, i) => line.trim() ? `${i + 1}. ${line}` : '').join('\n');
         insertText(list + '\n', false);
-    } else {
+    } else if (currentLine.trim() === '') {
+        // Empty line: insert 3 placeholder items
         insertText('1. Item 1\n2. Item 2\n3. Item 3\n', false);
+    } else if (currentLine.match(/^\d+\.\s/)) {
+        // Already in a numbered list: add new item on next line
+        const currentNumber = parseInt(currentLine.match(/^\d+/)[0]);
+        const after = editor.value.substring(end);
+        editor.value = before + `\n${currentNumber + 1}. ` + after;
+        editor.selectionStart = editor.selectionEnd = start + `\n${currentNumber + 1}. `.length;
+        editor.dispatchEvent(new Event('input'));
+        editor.focus();
+    } else {
+        // Convert current line to list item
+        const lineStart = start - currentLine.length;
+        const after = editor.value.substring(end);
+        const beforeLine = editor.value.substring(0, lineStart);
+        editor.value = beforeLine + '1. ' + currentLine + after;
+        editor.selectionStart = editor.selectionEnd = start + 3;
+        editor.dispatchEvent(new Event('input'));
+        editor.focus();
     }
 }
 
@@ -143,6 +292,10 @@ function insertBlockquote() {
 
 // Insert table
 function insertTable() {
+    const { editor, start } = getEditorSelection();
+    const before = editor.value.substring(0, start);
+    const currentLine = before.split('\n').pop();
+
     const table = `+------------+------------+------------+
 | Header 1   | Header 2   | Header 3   |
 +============+============+============+
@@ -152,7 +305,13 @@ function insertTable() {
 +------------+------------+------------+
 
 `;
-    insertText(table, false);
+
+    // If not at start of line, add newline before table
+    if (currentLine.length > 0) {
+        insertText('\n' + table, false);
+    } else {
+        insertText(table, false);
+    }
 }
 
 // Initialize toolbar event listeners
@@ -168,7 +327,7 @@ function initToolbar() {
     // Text formatting
     document.getElementById('btn-bold').addEventListener('click', () => wrapText('**'));
     document.getElementById('btn-italic').addEventListener('click', () => wrapText('*'));
-    document.getElementById('btn-code').addEventListener('click', () => wrapText('``'));
+    document.getElementById('btn-code').addEventListener('click', () => wrapText('``', '``'));
 
     // Lists
     document.getElementById('btn-ul').addEventListener('click', insertBulletList);
@@ -251,11 +410,33 @@ publish_string(rst_input, writer_name="html5").decode("utf-8")
 
         const initialHtml = await convertRST(sampleText);
         preview.innerHTML = initialHtml;
+
+        // Parse initial errors
+        const initialErrors = parseSystemMessages(initialHtml);
+        updateErrorPanel(initialErrors);
+
         console.log("Editor initialized!");
 
-        editor.addEventListener('input', async (e) => {
-            preview.innerHTML = await convertRST(e.target.value);
+        // Debounced conversion with error checking
+        const debouncedConvert = debounce(async (text) => {
+            const html = await convertRST(text);
+            preview.innerHTML = html;
+
+            // Parse and display errors
+            const errors = parseSystemMessages(html);
+            updateErrorPanel(errors);
+        }, 300);
+
+        editor.addEventListener('input', (e) => {
+            debouncedConvert(e.target.value);
         });
+
+        // Initialize toggle button for error panel
+        const toggleBtn = document.getElementById('toggle-errors');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', toggleErrorPanel);
+        }
+
         console.log("Event handlers registered!");
 
         // Hide spinner
@@ -268,6 +449,12 @@ publish_string(rst_input, writer_name="html5").decode("utf-8")
 
         // Initialize toolbar buttons
         initToolbar();
+
+        // Initialize export buttons
+        initExportButtons();
+
+        // Initialize resizable panels
+        initResizablePanels();
 
     } catch (error) {
         console.error("Failed to initialize:", error);
