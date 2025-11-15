@@ -60,7 +60,7 @@ html_title = "PyRST"
 html_theme_options = {
     "accent_color": "blue",
     "logo_target": "/",
-    "announcement": "PyRST is in active development. Features may change.",
+    "announcement": "Docs were AI generated, sorry if they suck!",
     "nav_links": [
         {
             "title": "Demo",

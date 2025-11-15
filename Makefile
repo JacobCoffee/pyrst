@@ -35,13 +35,10 @@ test: ## Run tests
 
 ci: lint fmt prettier type-check test ## Run everything its cleaner.
 
-docs-install: ## Install documentation dependencies
-	@uv sync --group dev
-
-docs-serve: docs-install ## Serve documentation locally
+docs-serve: ## Serve documentation locally
 	@uv run sphinx-autobuild docs docs/_build/html --port 8002 --watch docs
 
-docs-build: docs-install ## Build documentation
+docs-build: ## Build documentation
 	@uv run sphinx-build -W --keep-going -b html docs docs/_build/html
 
 docs-clean: ## Clean documentation build artifacts
