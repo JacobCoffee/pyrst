@@ -55,7 +55,7 @@ site-build: ## Build complete site (app + docs) for deployment
 	@echo "  - App: _site/index.html"
 	@echo "  - Docs: _site/docs/index.html"
 
-site-serve: site-build ## Build and serve complete site locally
+serve: site-build ## Build and serve complete site locally
 	@echo "Serving site at http://localhost:8003"
 	@echo "  - App: http://localhost:8003/"
 	@echo "  - Docs: http://localhost:8003/docs/"
