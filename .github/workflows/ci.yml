@@ -9,7 +9,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Lint, Format, and Type Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
