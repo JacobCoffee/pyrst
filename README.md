@@ -30,7 +30,7 @@ that runs entirely in your browser using Pyodide and docutils.
 
 ### Online Demo
 
-Visit the live demo at: **TODO**
+Visit the live demo at: **[PyRST Demo](https://rst.scriptr.dev)**]
 
 ### Local Development
 
